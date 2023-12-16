@@ -1,5 +1,5 @@
 def main():
-    folder_path = './NetworkTraffic/MachineLearningCVE/'
+    folder_path = 'csv/'
     fname1 = folder_path + 'Monday-WorkingHours.pcap_ISCX.csv'
     fname2 = folder_path + 'Tuesday-WorkingHours.pcap_ISCX.csv'
     fname3 = folder_path + 'Wednesday-workingHours.pcap_ISCX.csv'
@@ -18,7 +18,7 @@ def main():
     df = pd.concat(dfs[1:])
     df.to_csv(path_or_buf=folder_path+'clean_traffic_data.csv' , index=False) # output to one csv
     
-    df = load_data('clean_traffic_data.csv')
+    df = load_data(folder_path+'clean_traffic_data.csv')
     
     # DTREE
     # dtree for each file?
