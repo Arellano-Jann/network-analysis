@@ -11,7 +11,6 @@ def load_data(fname):
     df = pandas.read_csv(fname)
     return df
 
-df = load_data('clean_traffic_data.csv')
 
 # - This function should take a Pandas Dataframe and either remove or replace all NaN/Inf
 # values. If you replace the NaN values, you must choose how to replace them (with mean,
@@ -21,13 +20,6 @@ df = load_data('clean_traffic_data.csv')
 def clean_data(df):
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df = df.fillna(0) # or df = df.dropna()
-        
-for df in dfs:
-    clean_data(df)
-# SAME AS ABOVE
-# for i in range(len(dfs)):
-#     dfs[i].replace([np.inf, -np.inf], np.nan, inplace=True)
-#     dfs[i] = dfs[i].fillna(0) # or df = df.dropna()
 
 
 # - This function should take a Pandas Dataframe and split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing.
