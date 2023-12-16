@@ -3,10 +3,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import copy
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
+
 
 np.random.seed = 1 # make sure your generate the same random values when using np.random
 folder_path = 'csv/' # default folder path
+img_folder_path = 'img/'
 
 # Direct Multi-Class Classification (30 points)
 # Directly use our previous methods for multi-class classification (including Decision Trees and
@@ -22,8 +24,8 @@ def direct_multiclass_train(model_name, X_train, y_train):
         from sklearn import tree
         from sklearn.tree import DecisionTreeClassifier
         print('-'*30 + ' Training Decision Trees' + '-'*30)
-        print('num of malicious samples in training set {}: {:.0%}'.format(i, sum(y_train != 'BENIGN')/len(y_train)))
-        print('num of malicious samples in testing set {}: {:.0%}'.format(i, sum(y_test != 'BENIGN')/len(y_test)))
+        print('num of malicious samples in training set: {:.0%}'.format(sum(y_train != 'BENIGN')/len(y_train)))
+        print('num of malicious samples in testing set: {:.0%}'.format(sum(y_test != 'BENIGN')/len(y_test)))
 
         # train the model
         model = DecisionTreeClassifier()
@@ -32,8 +34,8 @@ def direct_multiclass_train(model_name, X_train, y_train):
     if model_name == 'knn':
         from sklearn.neighbors import KNeighborsClassifier
         print('-'*30 + ' Training KNN' + '-'*30)
-        print('num of malicious samples in training set {}: {:.0%}'.format(i, sum(y_train != 'BENIGN')/len(y_train)))
-        print('num of malicious samples in testing set {}: {:.0%}'.format(i, sum(y_test != 'BENIGN')/len(y_test)))
+        print('num of malicious samples in training set: {:.0%}'.format(sum(y_train != 'BENIGN')/len(y_train)))
+        print('num of malicious samples in testing set: {:.0%}'.format(sum(y_test != 'BENIGN')/len(y_test)))
 
         # train the model
         model = KNeighborsClassifier()
@@ -61,7 +63,16 @@ def direct_multiclass_test(model, X_test, y_test):
     print('Test Accuracy : {:.5f}'.format(acc))
     print('Classification_report:')
     print(classification_report(y_test, pred))
-    plt.show()
+    plt.savefig(img_folder_path+'1.png')
+    
+    # CONFUSION MATRIX
+    cm = confusion_matrix(y_test, pred)
+
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=rfc.classes_)
+    disp.plot(colorbar=False)
+    plt.xticks(rotation=45, ha='right')
+    plt.savefig(img_folder_path+'cm.png')
+    
     return acc
 
     # OTHER IMPLEMENT
@@ -97,7 +108,7 @@ def data_resampling(df, sampling_strategy='majority'):
     resampled_df.to_csv(path_or_buf=folder_path+'resampled_clean_traffic_data.csv', index=False)
     fig = plt.figure(figsize=(10,6))
     sns.countplot(x=' Label', data=resampled_df)
-    plt.show()
+    plt.savefig(img_folder_path+'resampled.png')
     return resampled_df
 
 
@@ -139,10 +150,10 @@ def improved_data_split(df):
     fig = plt.figure(figsize=(25,6))
     
     sns.countplot(x=' Label', data=df_train)
-    plt.show()
+    plt.savefig(img_folder_path+'split_train.png')
     
     sns.countplot(x=' Label', data=df_test)
-    plt.show()
+    plt.savefig(img_folder_path+'split_test.png')
     
     return df_train, df_test
 
@@ -157,6 +168,6 @@ def get_binary_dataset(df):
     # plot
     fig = plt.figure(figsize=(10,6))
     sns.countplot(x=' Label', data=df_binary)
-    plt.show()
+    plt.savefig(img_folder_path+'binary_data.png')
     
     return df_binary
