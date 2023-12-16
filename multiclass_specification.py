@@ -2,7 +2,11 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import copy
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+np.random.seed = 1 # make sure your generate the same random values when using np.random
+folder_path = 'csv/' # default folder path
 
 # Direct Multi-Class Classification (30 points)
 # Directly use our previous methods for multi-class classification (including Decision Trees and
@@ -90,21 +94,69 @@ def data_resampling(df, sampling_strategy='majority'):
     resampled_df[resampled_df.columns[:-1]] = X_resampled
     resampled_df[resampled_df.columns[-1]] = y_resampled
 
-    # resampled_df.to_csv(path_or_buf = folder_path + 'resampled_clean_traffic_data.csv' , index=False)
+    resampled_df.to_csv(path_or_buf=folder_path+'resampled_clean_traffic_data.csv', index=False)
+    fig = plt.figure(figsize=(10,6))
+    sns.countplot(x=' Label', data=resampled_df)
+    plt.show()
     return resampled_df
 
 
 # Hierarchical Multi-Class Classification (30 points)
-# Perform binary classification first (benign vs. malicious) using MLP. Once a sample has been
-# identified as malicious, perform multi-class classification to identify what kind of malicious
-# activity is occurring using random forest.
+# Perform binary classification first (benign vs. malicious) using MLP. Once a sample has been identified as malicious, perform multi-class classification to identify what kind of malicious activity is occurring using random forest.
 # Implement the following new functions:
 
 # - This function will take the original data df into train and test sets that both contain all the categories. 
 # Return train and test dataframes: df_train, and df_test.
 def improved_data_split(df):
-    pass
+    label_set = set(df[' Label'])
+    # print(label_set)
+
+    df_train_list=[]
+    df_test_list=[]
+    print('-'*60)
+    for label in label_set:
+        mask = np.random.rand(len(df[df[' Label']== label])) < 0.8
+        print('num of "{}" data samples: {}'.format(label, len(mask)))
+        df_train_list.append(df[df[' Label']== label][mask])
+        df_test_list.append(df[df[' Label']== label][~mask])
+
+    df_train = pd.concat(df_train_list)
+    df_test = pd.concat(df_test_list)
+
+    df_train.to_csv(folder_path+'train_traffic_data.csv', index=False)
+    df_test.to_csv(folder_path+'test_traffic_data.csv', index=False)
+    # check if testing set contains all the categories
+    print('-'*60)
+    print('check if testing set contains all the categories:', set(df_train[' Label']) == set(df_test[' Label']))
+    # print(len(df) == (len(df_train) + len(df_test)))
+    print('-'*60)
+    for label in label_set:
+        print('num of "{}" training samples: {}'.format(label, len(df_train[df_train[' Label']== label])))
+        # print('-'*30)
+        print('num of "{}" testing samples: {}'.format(label, len(df_test[df_test[' Label']== label])))
+        
+        
+    fig = plt.figure(figsize=(25,6))
+    
+    sns.countplot(x=' Label', data=df_train)
+    plt.show()
+    
+    sns.countplot(x=' Label', data=df_test)
+    plt.show()
+    
+    return df_train, df_test
 
 # - Convert df into a binary dataset and return it.
 def get_binary_dataset(df):
-    pass
+    df_binary = df.copy() # this is a deep copy
+    # 1. convert all malicious labels to "MALICIOUS"
+    df_binary.loc[df_binary[' Label'] != 'BENIGN', ' Label'] = 'MALICIOUS'
+
+    # 2. save the data
+    df_binary.to_csv(folder_path+'binary_traffic_data.csv')
+    # plot
+    fig = plt.figure(figsize=(10,6))
+    sns.countplot(x=' Label', data=df_binary)
+    plt.show()
+    
+    return df_binary
