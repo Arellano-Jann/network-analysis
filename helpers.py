@@ -20,14 +20,15 @@ def load_data(fname):
 def clean_data(df):
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df = df.fillna(0) # or df = df.dropna()
+    return df
 
 
 # - This function should take a Pandas Dataframe and split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing.
 # You can do this randomly or use the first 80% for training and the remaining for testing.
 # Make your choice clear in the documentation. This function will return four Dataframes: X_train, y_train, X_test, and y_test.
 from sklearn.model_selection import train_test_split
-def split_data(df):
-    return train_test_split(df, test_size=0.2)
+def split_data(df, test_size=0.2):
+    return train_test_split(df, test_size=test_size)
     
     # ALTERNATE VERSION
     # mask = np.random.rand(len(df)) < 0.8
