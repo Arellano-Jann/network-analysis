@@ -11,20 +11,7 @@ def load_data(fname):
     df = pandas.read_csv(fname)
     return df
 
-folder_path = './NetworkTraffic/MachineLearningCVE/'
-fname1 = folder_path + 'Monday-WorkingHours.pcap_ISCX.csv'
-fname2 = folder_path + 'Tuesday-WorkingHours.pcap_ISCX.csv'
-fname3 = folder_path + 'Wednesday-workingHours.pcap_ISCX.csv'
-fname4 = folder_path + 'Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv'
-fname5 = folder_path + 'Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv'
-fname6 = folder_path + 'Friday-WorkingHours-Morning.pcap_ISCX.csv'
-fname7 = folder_path + 'Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv'
-fname8 = folder_path + 'Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv'
-df1, df2, df3, df4, df5, df6, df7, df8 = load_data(fname1), load_data(fname2), load_data(fname3), load_data(fname4), load_data(fname5), load_data(fname6), load_data(fname7), load_data(fname8)
-
-
-df_list = [df1, df2, df3, df4, df5, df6, df7, df8]
-dfs = copy.deepcopy(df_list)
+df = load_data('clean_traffic_data.csv')
 
 # - This function should take a Pandas Dataframe and either remove or replace all NaN/Inf
 # values. If you replace the NaN values, you must choose how to replace them (with mean,
