@@ -17,6 +17,11 @@ img_folder_path = 'img/'
 
 # - This function should take the model_name (“dt”, “knn”, “mlp”, “rf’) as input along with the training data (two Dataframes) and return a trained model.
 def direct_multiclass_train(model_name, X_train, y_train):
+    '''
+    train a model with either a DecisionTreeClassifier, KNearestNeighbors, NeuralNetworks (MLPClassifier), or RandomForestClassifier
+    output: a trained model
+    input: model_name, and both X_train and y_train dataframes from split_data() in helpers.py
+    '''
     if model_name not in ('dt', 'knn', 'mlp', 'rf'): 
         print("Invalid model_name in function direct_multiclass_train")
         return
@@ -56,7 +61,11 @@ def direct_multiclass_train(model_name, X_train, y_train):
 # - This function should take a trained model and evaluate the model on the test data,
 # returning an accuracy value.
 def direct_multiclass_test(model, X_test, y_test):
-
+    '''
+    test any model and output the accuracy
+    output: accuracy of model
+    input: both X_test and y_test dataframes from split_data() in helpers.py
+    '''
     # prediction
     pred = model.predict(X_test)
     acc = accuracy_score(pred, y_test)
@@ -75,15 +84,15 @@ def direct_multiclass_test(model, X_test, y_test):
     
     return acc
 
-    # OTHER IMPLEMENT
-    correct = 0
-    total = 0
-    predictions = model.predict(X_test)
-    for i in range(len(predictions)):
-        total += 1
-        if predictions[i] == y_test.iloc[i]:
-            correct += 1
-    return float(correct/total)
+    # # OTHER IMPLEMENTATION if the other doesn't work
+    # correct = 0
+    # total = 0
+    # predictions = model.predict(X_test)
+    # for i in range(len(predictions)):
+    #     total += 1
+    #     if predictions[i] == y_test.iloc[i]:
+    #         correct += 1
+    # return float(correct/total)
 
 
 # Direct Multi-Class Classification with Resampling (20 points)
@@ -93,6 +102,12 @@ def direct_multiclass_test(model, X_test, y_test):
 # - This function should take the dataframe as input, undersample it using
 # sampling_strategy, and return the resampled df.
 def data_resampling(df, sampling_strategy='majority'):
+    '''
+    undersample a dataframe with any sampling strategy
+    the default sampling strategy is majority
+    output: a resampled dataframe with a specified sampling strategy
+    input: a dataframe to be resampled, a sampling strategy that may be specified by the user
+    '''
     from imblearn.under_sampling import RandomUnderSampler
     rus = RandomUnderSampler(sampling_strategy=sampling_strategy, random_state=2)
     X = df[df.columns[:-1]]
@@ -119,6 +134,11 @@ def data_resampling(df, sampling_strategy='majority'):
 # - This function will take the original data df into train and test sets that both contain all the categories. 
 # Return train and test dataframes: df_train, and df_test.
 def improved_data_split(df):
+    '''
+    split a dataframe along their labels
+    output: df_train, and df_test that has had their labels split 
+    input: a dataframe that needs their labels split
+    '''
     label_set = set(df[' Label'])
     # print(label_set)
 
@@ -159,6 +179,11 @@ def improved_data_split(df):
 
 # - Convert df into a binary dataset and return it.
 def get_binary_dataset(df):
+    '''
+    Convert df into a binary dataset
+    output: df_binary which is a binary dataset 
+    input: a dataframe that needs to be converted into a binary dataset
+    '''
     df_binary = df.copy() # this is a deep copy
     # 1. convert all malicious labels to "MALICIOUS"
     df_binary.loc[df_binary[' Label'] != 'BENIGN', ' Label'] = 'MALICIOUS'

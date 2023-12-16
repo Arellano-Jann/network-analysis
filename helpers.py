@@ -9,7 +9,7 @@ def load_data(fname):
     load the data in fname into a pandas dataframe and return it
     '''
     df = pandas.read_csv(fname)
-    print('load_data')
+    print('successfully loaded data')
     return df
 
 
@@ -19,6 +19,9 @@ def load_data(fname):
 # This function should also remove any columns of the data that are not numerical features.
 # This function will return a cleaned Dataframe.
 def clean_data(df):
+    '''
+    cleans the data by replacing inf and NaN values with 0
+    '''
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df = df.fillna(0) # or df = df.dropna()
     return df
@@ -29,6 +32,10 @@ def clean_data(df):
 # Make your choice clear in the documentation. This function will return four Dataframes: X_train, y_train, X_test, and y_test.
 from sklearn.model_selection import train_test_split
 def split_data(df, test_size=0.2):
+    '''
+    splits the input dataframe into training and testing data
+    this split is 80% training and 20% testing on default but configurable by setting test_size
+    '''
     return train_test_split(df, test_size=test_size)
     
     # ALTERNATE VERSION
