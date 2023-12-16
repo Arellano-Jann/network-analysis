@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 # Direct Multi-Class Classification (30 points)
 # Directly use our previous methods for multi-class classification (including Decision Trees and
@@ -9,6 +10,7 @@ import matplotlib.pyplot as plt
 # Implement the following functions:
 
 # - This function should take the model_name (“dt”, “knn”, “mlp”, “rf’) as input along with the training data (two Dataframes) and return a trained model.
+# CHECK FUNCTIONS FOR THEIR OWN X_TRAIN AND Y_TRAIN AND REMOVE AS NEEDED
 def direct_multiclass_train(model_name, X_train, y_train):
     if model_name not in ('dt', 'knn', 'mlp', 'rf'): 
         print("Invalid model_name in direct_multiclass_train")
@@ -101,10 +103,39 @@ def direct_multiclass_train(model_name, X_train, y_train):
         print('overall accuracy: {:.4f}'.format(correct/total))
     
     if model_name == 'mlp':
-        pass
+        from sklearn.neural_network import MLPClassifier
+        mask = np.random.rand(len(resampled_df)) < 0.8
+        df_train = resampled_df[mask]
+        df_test = resampled_df[~mask]
+
+        X_train = df_train[df_train.columns[:-1]]
+        y_train = df_train[df_train.columns[-1]]
+
+        X_test = df_test[df_test.columns[:-1]]
+        y_test = df_test[df_test.columns[-1]]
+
+        # training
+        mlp = MLPClassifier(hidden_layer_sizes=(40,), random_state=1, max_iter=300).fit(X_train, y_train)
+
+        # prediction
+        pred = mlp.predict(X_test)
+        acc = accuracy_score(pred, y_test)
+        print('Test Accuracy : {:.5f}'.format(acc))
+        print('Classification_report:')
+        print(classification_report(y_test, pred))
     
     if model_name == 'rf':
-        pass
+        from sklearn.ensemble import RandomForestClassifier
+        # training
+        rfc = RandomForestClassifier().fit(X_train, y_train)
+
+        # prediction
+        pred = rfc.predict(X_test)
+        acc = accuracy_score(pred, y_test)
+        print('Test Accuracy : {:.5f}'.format(acc))
+        print('Classification_report:')
+        print(classification_report(y_test, pred))
+        plt.show()
     
 
 # - This function should take a trained model and evaluate the model on the test data,
@@ -142,8 +173,8 @@ def data_resampling(df, sampling_strategy='majority'):
 # activity is occurring using random forest.
 # Implement the following new functions:
 
-# - This function will take the original data df into train and test sets that both contain all the
-# categories. Return train and test dataframes: df_train, and df_test.
+# - This function will take the original data df into train and test sets that both contain all the categories. 
+# Return train and test dataframes: df_train, and df_test.
 def improved_data_split(df):
     pass
 
