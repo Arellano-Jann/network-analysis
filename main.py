@@ -1,3 +1,5 @@
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 def main():
     folder_path = 'csv/'
     fname1 = folder_path + 'Monday-WorkingHours.pcap_ISCX.csv'
@@ -31,4 +33,12 @@ def main():
     
     # RF
     # resample data
+    
+    # CONFUSION MATRIX
+    cm = confusion_matrix(y_test, pred)
+
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=rfc.classes_)
+    disp.plot(colorbar=False)
+    plt.xticks(rotation=45, ha='right')
+    plt.show()
     
