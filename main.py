@@ -16,11 +16,19 @@ def main():
         clean_data(df)
         
     df = pd.concat(dfs[1:])
-    df.to_csv(path_or_buf=folder_path+'clean_traffic_data.csv' , index=False)
-    
+    df.to_csv(path_or_buf=folder_path+'clean_traffic_data.csv' , index=False) # output to one csv
     
     df = load_data('clean_traffic_data.csv')
-    # SAME AS ABOVE
-    # for i in range(len(dfs)):
-    #     dfs[i].replace([np.inf, -np.inf], np.nan, inplace=True)
-    #     dfs[i] = dfs[i].fillna(0) # or df = df.dropna()
+    
+    # DTREE
+    # dtree for each file?
+    
+    # KNN
+    # whole dataset for knn?
+    
+    # MLP
+    # resample data
+    
+    # RF
+    # resample data
+    
