@@ -10,10 +10,9 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 # Implement the following functions:
 
 # - This function should take the model_name (“dt”, “knn”, “mlp”, “rf’) as input along with the training data (two Dataframes) and return a trained model.
-# CHECK FUNCTIONS FOR THEIR OWN X_TRAIN AND Y_TRAIN AND REMOVE AS NEEDED
 def direct_multiclass_train(model_name, X_train, y_train):
     if model_name not in ('dt', 'knn', 'mlp', 'rf'): 
-        print("Invalid model_name in direct_multiclass_train")
+        print("Invalid model_name in function direct_multiclass_train")
         return
     if model_name == 'dt':
         from sklearn import tree
