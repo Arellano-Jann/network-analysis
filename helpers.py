@@ -9,6 +9,7 @@ def load_data(fname):
     load the data in fname into a pandas dataframe and return it
     '''
     df = pandas.read_csv(fname)
+    print('load_data')
     return df
 
 
