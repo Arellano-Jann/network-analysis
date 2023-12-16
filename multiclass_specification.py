@@ -104,44 +104,28 @@ def direct_multiclass_train(model_name, X_train, y_train):
     
     if model_name == 'mlp':
         from sklearn.neural_network import MLPClassifier
-        mask = np.random.rand(len(resampled_df)) < 0.8
-        df_train = resampled_df[mask]
-        df_test = resampled_df[~mask]
-
-        X_train = df_train[df_train.columns[:-1]]
-        y_train = df_train[df_train.columns[-1]]
-
-        X_test = df_test[df_test.columns[:-1]]
-        y_test = df_test[df_test.columns[-1]]
-
         # training
-        mlp = MLPClassifier(hidden_layer_sizes=(40,), random_state=1, max_iter=300).fit(X_train, y_train)
-
-        # prediction
-        pred = mlp.predict(X_test)
-        acc = accuracy_score(pred, y_test)
-        print('Test Accuracy : {:.5f}'.format(acc))
-        print('Classification_report:')
-        print(classification_report(y_test, pred))
-    
+        model = MLPClassifier(hidden_layer_sizes=(40,), random_state=1, max_iter=300).fit(X_train, y_train)
+        
     if model_name == 'rf':
         from sklearn.ensemble import RandomForestClassifier
         # training
-        rfc = RandomForestClassifier().fit(X_train, y_train)
-
-        # prediction
-        pred = rfc.predict(X_test)
-        acc = accuracy_score(pred, y_test)
-        print('Test Accuracy : {:.5f}'.format(acc))
-        print('Classification_report:')
-        print(classification_report(y_test, pred))
-        plt.show()
+        model = RandomForestClassifier().fit(X_train, y_train)
+    return model
     
 
 # - This function should take a trained model and evaluate the model on the test data,
 # returning an accuracy value.
 def direct_multiclass_test(model, X_test, y_test):
-    pass
+
+    # prediction
+    pred = model.predict(X_test)
+    acc = accuracy_score(pred, y_test)
+    print('Test Accuracy : {:.5f}'.format(acc))
+    print('Classification_report:')
+    print(classification_report(y_test, pred))
+    plt.show()
+    return acc
 
 
 # Direct Multi-Class Classification with Resampling (20 points)
