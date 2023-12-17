@@ -1,5 +1,7 @@
 # network-analysis
 
+Note: I had trouble with training the whole datasets since my computer could not handle it so I tested with traffic_data.csv and traffic_data_copy.csv which both worked. 
+
 This assignment shows multiple multi-class classification methods using the network traffic data.
 
 This is done in a few ways:
