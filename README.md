@@ -12,13 +12,14 @@ Directly use our previous methods for binary classification (Decision Trees, KNN
 
 Resample the large, unbalanced dataset to have a smaller and more balanced dataset for classifier
 
-**Today: Hierarchical Multi-Class Classification**
+**Hierarchical Multi-Class Classification**
 
 Perform binary classification first (benign vs. malicious). Once a sample has been identified as malicious, perform multi-class classification to identify what kind of malicious activity is occurring.
 
 
 To run this project, you’ll need to install all
-the necessary packages (numpy, pandas, scikit learn, etc.). 
+the necessary packages (numpy, pandas, scikit learn, etc.).
+Afterwards, you can run the makefile or the main file. 
 
 ## Helpers.py
 
