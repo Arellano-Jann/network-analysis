@@ -28,31 +28,29 @@ def clean_data(df):
     '''
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df = df.fillna(0) # or df = df.dropna()
+    df = df.reset_index()
     return df
 
 
-# - This function should take a Pandas Dataframe and split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing.
+# - This function should take a Pands Dataframe and split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing.
 # You can do this randomly or use the first 80% for training and the remaining for testing.
 # Make your choice clear in the documentation. This function will return four Dataframes: X_train, y_train, X_test, and y_test.
 from sklearn.model_selection import train_test_split
-def split_data(df, test_size=0.2):
+def split_data(df, train_size=0.8):
     '''
     splits the input dataframe into training and testing data
     this split is 80% training and 20% testing on default but configurable by setting test_size
     output: returns 4 dataframes which are X_train, y_train, X_test, and y_test
     input: pandas dataframe to be split into train and test
     '''
-    return train_test_split(df, test_size=test_size)
-    
-    # ALTERNATE VERSION
-    # mask = np.random.rand(len(df)) < 0.8
-    # df_train = df[mask]
-    # df_test = df[~mask]
+    mask = np.random.rand(len(df)) < train_size
+    df_train = df[mask]
+    df_test = df[~mask]
 
-    # X_train = df_train[df_train.columns[:-1]]
-    # y_train = df_train[df_train.columns[-1]]
+    X_train = df_train[df_train.columns[:-1]]
+    y_train = df_train[df_train.columns[-1]]
 
-    # X_test = df_test[df_test.columns[:-1]]
-    # y_test = df_test[df_test.columns[-1]]
+    X_test = df_test[df_test.columns[:-1]]
+    y_test = df_test[df_test.columns[-1]]
     
-    # return X_train, y_train, X_test, and y_test
+    return X_train, y_train, X_test, y_test

@@ -33,8 +33,8 @@ Afterwards, you can run the makefile or the main file.
 - Details: Replace all NaN/Inf values with 0. This function should also remove any columns of the data that are not numerical features.
 - Output: This function will return a cleaned Dataframe.
 
-`split_data(df)`
-- Input: This function should take a Pandas Dataframe
+`split_data(df, train_size=0.8)`
+- Input: This function should take a Pandas Dataframe, optionally a training size
 - Details: split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing. This function splits it how the train_test_split function does which is randomly.
 - Output: This function will return four Dataframes: X_train, y_train, X_test, and y_test.
 

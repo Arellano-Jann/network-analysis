@@ -30,7 +30,6 @@ def direct_multiclass_train(model_name, X_train, y_train):
         from sklearn.tree import DecisionTreeClassifier
         print('-'*30 + ' Training Decision Trees' + '-'*30)
         print('num of malicious samples in training set: {:.0%}'.format(sum(y_train != 'BENIGN')/len(y_train)))
-        print('num of malicious samples in testing set: {:.0%}'.format(sum(y_test != 'BENIGN')/len(y_test)))
 
         # train the model
         model = DecisionTreeClassifier()
@@ -40,7 +39,6 @@ def direct_multiclass_train(model_name, X_train, y_train):
         from sklearn.neighbors import KNeighborsClassifier
         print('-'*30 + ' Training KNN' + '-'*30)
         print('num of malicious samples in training set: {:.0%}'.format(sum(y_train != 'BENIGN')/len(y_train)))
-        print('num of malicious samples in testing set: {:.0%}'.format(sum(y_test != 'BENIGN')/len(y_test)))
 
         # train the model
         model = KNeighborsClassifier()
@@ -48,11 +46,13 @@ def direct_multiclass_train(model_name, X_train, y_train):
     
     if model_name == 'mlp':
         from sklearn.neural_network import MLPClassifier
+        print('-'*30 + ' Training MLPClassifier' + '-'*30)
         # training
         model = MLPClassifier(hidden_layer_sizes=(40,), random_state=1, max_iter=300).fit(X_train, y_train)
         
     if model_name == 'rf':
         from sklearn.ensemble import RandomForestClassifier
+        print('-'*30 + ' Training RandomForestClassifier' + '-'*30)
         # training
         model = RandomForestClassifier().fit(X_train, y_train)
     return model
@@ -78,7 +78,7 @@ def direct_multiclass_test(model, X_test, y_test):
     # CONFUSION MATRIX
     cm = confusion_matrix(y_test, pred)
 
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=rfc.classes_)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=model.classes_)
     disp.plot(colorbar=False)
     plt.xticks(rotation=45, ha='right')
     plt.savefig(img_folder_path+'cm.png')
