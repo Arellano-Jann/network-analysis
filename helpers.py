@@ -6,7 +6,9 @@ import numpy as np
 
 def load_data(fname):
     '''
-    load the data in fname into a pandas dataframe and return it
+    load the csv data (fname) into a pandas dataframe and return it
+    output: returns the pandas dataframe
+    input: filename associated with a csv
     '''
     df = pandas.read_csv(fname)
     print('successfully loaded data')
@@ -21,6 +23,8 @@ def load_data(fname):
 def clean_data(df):
     '''
     cleans the data by replacing inf and NaN values with 0
+    output: returns the cleaned dataframe
+    input: pandas dataframe to be cleaned
     '''
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
     df = df.fillna(0) # or df = df.dropna()
@@ -35,6 +39,8 @@ def split_data(df, test_size=0.2):
     '''
     splits the input dataframe into training and testing data
     this split is 80% training and 20% testing on default but configurable by setting test_size
+    output: returns 4 dataframes which are X_train, y_train, X_test, and y_test
+    input: pandas dataframe to be split into train and test
     '''
     return train_test_split(df, test_size=test_size)
     
