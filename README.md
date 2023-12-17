@@ -20,7 +20,7 @@ Perform binary classification first (benign vs. malicious). Once a sample has be
 To run this project, you’ll need to install all
 the necessary packages (numpy, pandas, scikit learn, etc.). 
 
-### Helpers.py
+## Helpers.py
 
 `load_data(fname)`
 - Input: This function should take a filename 
@@ -39,8 +39,8 @@ the necessary packages (numpy, pandas, scikit learn, etc.).
 
 
 
-### multiclass_classification.py
-
+## multiclass_classification.py
+### Direct Multi-Class Classification
 Directly use our previous methods for multi-class classification (including Decision Trees and
 KNN) to predict multiple classes.
 
@@ -54,18 +54,25 @@ KNN) to predict multiple classes.
 - Details: evaluate the model on the test data,
 - Output: returning an accuracy value.
 
+### Direct Multi-Class Classification with Resampling
+Perform data resampling to handle the unbalanced data distribution, and then conduct multi-class classification using MLP and random forest
+
 `data_resampling(df, sampling_strategy)`
 - Input: This function should take the dataframe as input, undersample it using sampling_strategy
 - Details: Perform data resampling to handle the unbalanced data distribution, and then conduct multi-class classification using MLP and random forest.
 - Output: return the resampled df.
 
-Hierarchical Multi-Class Classification (30 points)
+### Hierarchical Multi-Class Classification Functions
 Perform binary classification first (benign vs. malicious) using MLP. Once a sample has been
 identified as malicious, perform multi-class classification to identify what kind of malicious
 activity is occurring using random forest.
 
 `improved_data_split(df)`
-- This function will take the original data df into train and test sets that both contain all the
-categories. Return train and test dataframes: df_train, and df_test.
-get_binary_dataset(df)
-- Convert df into a binary dataset and return i
+- Input: This function will take the original data df 
+- Details: Transforms the df into train and test sets that both contain all the categories. 
+- Output: Return train and test dataframes: df_train, and df_test.
+
+`get_binary_dataset(df)`
+- Input: This function will take a df 
+- Details: Transfom df into a binary dataset
+- Output: Returns the binary df
