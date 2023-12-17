@@ -23,22 +23,19 @@ the necessary packages (numpy, pandas, scikit learn, etc.).
 ### Helpers.py
 
 `load_data(fname)`
-- This function should take a filename and load the data in the file into a Pandas Dataframe.
-The Dataframe should be returned from the function.
+- Input: This function should take a filename 
+- Details: Loads the data in the file into a Pandas Dataframe.
+- Output: The Dataframe should be returned from the function.
 
 `clean_data(df)`
-- This function should take a Pandas Dataframe and either remove or replace all NaN/Inf
-values. If you replace the NaN values, you must choose how to replace them (with mean,
-median, fixed value, etc.). Your choice should be clearly indicated in your documentation.
-This function should also remove any columns of the data that are not numerical features.
-This function will return a cleaned Dataframe.
+- Input: This function should take a Pandas Dataframe 
+- Details: Replace all NaN/Inf values with 0. This function should also remove any columns of the data that are not numerical features.
+- Output: This function will return a cleaned Dataframe.
 
 `split_data(df)`
-- This function should take a Pandas Dataframe and split the Dataframe into training and
-testing data. This function should split the data into 80% for training and 20% for testing.
-You can do this randomly or use the first 80% for training and the remaining for testing.
-Make your choice clear in the documentation. This function will return four Dataframes:
-X_train, y_train, X_test, and y_test.
+- Input: This function should take a Pandas Dataframe
+- Details: split the Dataframe into training and testing data. This function should split the data into 80% for training and 20% for testing. This function splits it how the train_test_split function does which is randomly.
+- Output: This function will return four Dataframes: X_train, y_train, X_test, and y_test.
 
 
 
@@ -48,18 +45,20 @@ Directly use our previous methods for multi-class classification (including Deci
 KNN) to predict multiple classes.
 
 `direct_multiclass_train(model_name, X_train, y_train)`
-- This function should take the model_name (“dt”, “knn”, “mlp”, “rf’) as input along with
-the training data (two Dataframes) and return a trained model.
-direct_multiclass_test(model, X_test, y_test)
-- This function should take a trained model and evaluate the model on the test data,
-returning an accuracy value.
-Direct Multi-Class Classification with Resampling (20 points)
-Perform data resampling to handle the unbalanced data distribution, and then conduct multi-
-class classification using MLP and random forest.
+- Input: This function should take the model_name (“dt”, “knn”, “mlp”, “rf’) as input along with the training data (two Dataframes) 
+- Details: Trains a model according to the model_name inputted.
+- Output: return a trained model.
+
+`direct_multiclass_test(model, X_test, y_test)`
+- Input: This function should take a trained model 
+- Details: evaluate the model on the test data,
+- Output: returning an accuracy value.
 
 `data_resampling(df, sampling_strategy)`
-- This function should take the dataframe as input, undersample it using
-sampling_strategy, and return the resampled df.
+- Input: This function should take the dataframe as input, undersample it using sampling_strategy
+- Details: Perform data resampling to handle the unbalanced data distribution, and then conduct multi-class classification using MLP and random forest.
+- Output: return the resampled df.
+
 Hierarchical Multi-Class Classification (30 points)
 Perform binary classification first (benign vs. malicious) using MLP. Once a sample has been
 identified as malicious, perform multi-class classification to identify what kind of malicious
