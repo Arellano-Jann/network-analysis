@@ -30,7 +30,7 @@ fname4 = folder_path + 'Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv'
 # for df in dfs:
 #     clean_data(df) # maybe this won't deep clean it
 
-smallfile = folder_path + 'traffic_data.csv'
+smallfile = folder_path + 'traffic_data_copy.csv'
 df = load_data(smallfile)
 print(df.info())
 df = clean_data(df)  
