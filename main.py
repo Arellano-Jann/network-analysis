@@ -63,7 +63,7 @@ print('overall acc', correct/count)
 # KNN
 # whole dataset for knn?
 print('KNN')
-df = load_data(folder_path+'traffic_data.csv') # load merged dataframes
+# df = load_data(folder_path+'traffic_data.csv') # load merged dataframes
 X_train, y_train, X_test, y_test = split_data(df) # split train and test data
 
 model = direct_multiclass_train('knn', X_train, y_train) # train model
