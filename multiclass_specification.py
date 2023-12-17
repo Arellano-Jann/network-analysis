@@ -62,7 +62,8 @@ def direct_multiclass_train(model_name, X_train, y_train):
 # returning an accuracy value.
 def direct_multiclass_test(model, X_test, y_test):
     '''
-    test any model and output the accuracy
+    test any model and output the accuracy using accuracy_score from sklearn
+    this also outputs the classification report from sklearn and saves a figure in the img_folder as 1.png and it saves a confusion matrix as cm.png
     output: accuracy of model
     input: both X_test and y_test dataframes from split_data() in helpers.py
     '''
@@ -105,6 +106,8 @@ def data_resampling(df, sampling_strategy='majority'):
     '''
     undersample a dataframe with any sampling strategy
     the default sampling strategy is majority
+    this also makes a csv in the folder as resampled_clean_traffic_data.csv
+    this also saves a figure in the img as resampled.png
     output: a resampled dataframe with a specified sampling strategy
     input: a dataframe to be resampled, a sampling strategy that may be specified by the user
     '''
@@ -136,6 +139,8 @@ def data_resampling(df, sampling_strategy='majority'):
 def improved_data_split(df):
     '''
     split a dataframe along their labels
+    this also makes a csv in the folder as train_traffic_data.csv and test_traffic_data.csv
+    this also saves a figure in the img_folder as split_train.png and split_test.png
     output: df_train, and df_test that has had their labels split 
     input: a dataframe that needs their labels split
     '''
@@ -180,7 +185,9 @@ def improved_data_split(df):
 # - Convert df into a binary dataset and return it.
 def get_binary_dataset(df):
     '''
-    Convert df into a binary dataset
+    Convert df into a binary dataset by converting it to 'MALICIOUS' or not
+    this also makes a csv in the folder as binary_traffic_data.csv
+    this also saves a figure in the img as binary_data.png
     output: df_binary which is a binary dataset 
     input: a dataframe that needs to be converted into a binary dataset
     '''
